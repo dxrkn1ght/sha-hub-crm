@@ -48,6 +48,7 @@ export const metadata: Metadata = {
     apple: "/logo.jpg",
     shortcut: "/logo.jpg",
   },
+    generator: 'v0.app'
 };
 
 export default function RootLayout({

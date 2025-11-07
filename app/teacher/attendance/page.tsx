@@ -22,7 +22,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useTeacherStore } from "@/stores/teacher-store";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { TeacherLayout } from "@/components/layouts/teacher-layout";
 import { Badge } from "@/components/ui/badge";
 
@@ -34,7 +34,7 @@ export default function TeacherAttendancePage() {
     addAttendanceRecord,
     updateAttendanceRecord,
   } = useTeacherStore();
-  const { students } = // useAdminStore (removed) // please use API fetch or server components();
+  const { students } = useAdminStore();
 
   const [selectedGroup, setSelectedGroup] = useState("");
   const [selectedLesson, setSelectedLesson] = useState("");

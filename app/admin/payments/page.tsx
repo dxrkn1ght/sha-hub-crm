@@ -29,12 +29,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { AdminLayout } from "@/components/layouts/admin-layout";
 import { Payment } from "@/types";
 
 export default function PaymentsPage() {
-  const { payments, students, addPayment, updatePayment } = // useAdminStore (removed) // please use API fetch or server components();
+  const { payments, students, addPayment, updatePayment } = useAdminStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingPayment, setEditingPayment] = useState<Payment | null>(null);

@@ -5,14 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Award } from "lucide-react";
 import { useStudentStore } from "@/stores/student-store";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { StudentLayout } from "@/components/layouts/student-layout";
 import { cn } from "@/lib/utils";
 
 export default function StudentShopPage() {
   const { totalPoints, studentActivities, spendPoints, earnPoints } =
     useStudentStore();
-  const { products } = // useAdminStore (removed) // please use API fetch or server components();
+  const { products } = useAdminStore();
 
   // Mock shop items, including some non-physical items
   const shopItems = [

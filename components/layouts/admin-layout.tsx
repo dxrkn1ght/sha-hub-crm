@@ -1,29 +1,23 @@
-"use client";
+"use client"
 
-import type { ReactNode } from "react";
-import {
-  LayoutDashboard,
-  Users,
-  GraduationCap,
-  CreditCard,
-  BarChart3,
-  ShoppingCart,
-} from "lucide-react";
-import { UnifiedLayout } from "./unified-layout";
+import type { ReactNode } from "react"
+import { LayoutDashboard, Users, GraduationCap, CreditCard, BarChart3, ShoppingCart } from "lucide-react"
+import { UnifiedLayout } from "./unified-layout"
 
 interface AdminLayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const adminNavigation = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Teachers", href: "/admin/teachers", icon: Users },
   { name: "Students", href: "/admin/students", icon: GraduationCap },
+  { name: "Groups", href: "/admin/groups", icon: Users },
   { name: "Payments", href: "/admin/payments", icon: CreditCard },
   { name: "Reports", href: "/admin/salaries", icon: BarChart3 },
   { name: "Products", href: "/admin/shop", icon: ShoppingCart },
-];
+]
 
 export function AdminLayout({ children }: AdminLayoutProps) {
-  return <UnifiedLayout navigation={adminNavigation}>{children}</UnifiedLayout>;
+  return <UnifiedLayout navigation={adminNavigation}>{children}</UnifiedLayout>
 }

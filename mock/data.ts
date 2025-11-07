@@ -100,7 +100,32 @@ const mockTeachers: Teacher[] = [
   },
 ];
 
-const mockStudents: Student[] = [];
+const mockStudents: Student[] = [
+  {
+    id: "1",
+    name: "Alice Johnson",
+    email: "alice@student.com",
+    phone: "+1234567894",
+    course: "Math Class",
+    teacher: "John Smith",
+    fee: 500,
+    joinDate: "2024-01-20",
+    status: "active",
+    paymentStatus: "paid",
+  },
+  {
+    id: "2",
+    name: "Bob Smith",
+    email: "bob@student.com",
+    phone: "+1234567895",
+    course: "English Class",
+    teacher: "Sarah Johnson",
+    fee: 450,
+    joinDate: "2024-02-15",
+    status: "active",
+    paymentStatus: "pending",
+  },
+];
 
 const mockPayments: Payment[] = [
   {
@@ -198,7 +223,60 @@ const mockAchievements: Achievement[] = [
 ];
 
 // * Mock Data for teacher role
-const mockGroups: Group[] = [];
+const mockGroups: Group[] = [
+  {
+    id: "g1",
+    name: "Math A",
+    subject: "Mathematics",
+    lessonTime: "09:00 - 10:30",
+    lessonDays: ["Monday", "Wednesday", "Friday"],
+    studentIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], // Alice, Bob, Carol, David, Eva, etc.
+    active: true,
+  },
+  {
+    id: "g2",
+    name: "Math B",
+    subject: "Mathematics",
+    lessonTime: "14:00 - 15:30",
+    lessonDays: ["Tuesday", "Thursday"],
+    studentIds: ["13", "14", "15", "16", "17", "18", "19", "20", "21", "22"],
+    active: true,
+  },
+  {
+    id: "g3",
+    name: "Physics A",
+    subject: "Physics",
+    lessonTime: "11:00 - 12:30",
+    lessonDays: ["Monday", "Wednesday"],
+    studentIds: ["1", "2", "23", "24", "25", "26", "27", "28"],
+    active: true,
+  },
+  {
+    id: "g4",
+    name: "Chemistry A",
+    subject: "Chemistry",
+    lessonTime: "16:00 - 17:30",
+    lessonDays: ["Tuesday", "Saturday"],
+    studentIds: [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+    ],
+    active: true,
+  },
+];
 
 const mockLessons: Lesson[] = [
   {

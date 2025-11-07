@@ -33,7 +33,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useTeacherStore } from "@/stores/teacher-store";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { TeacherLayout } from "@/components/layouts/teacher-layout";
 import {
   MultiSelector,
@@ -48,7 +48,7 @@ import { Group, LessonDay } from "@/types/teacher-types";
 export default function TeacherGroupsPage() {
   const { groups, addGroup, updateGroup, deleteGroup, assignStudentsToGroup } =
     useTeacherStore();
-  const { students } = // useAdminStore (removed) // please use API fetch or server components();
+  const { students } = useAdminStore();
 
   const [isAddGroupDialogOpen, setIsAddGroupDialogOpen] = useState(false);
   const [isAssignStudentsDialogOpen, setIsAssignStudentsDialogOpen] =

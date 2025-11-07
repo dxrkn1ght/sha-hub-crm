@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 
 function RecentActivity() {
-  const { activities } = // useAdminStore (removed) // please use API fetch or server components();
+  const { activities } = useAdminStore();
 
   return (
     <Card>

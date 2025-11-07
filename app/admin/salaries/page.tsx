@@ -19,11 +19,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { AdminLayout } from "@/components/layouts/admin-layout";
 
 export default function SalariesPage() {
-  const { teachers } = // useAdminStore (removed) // please use API fetch or server components();
+  const { teachers } = useAdminStore();
 
   const totalSalaries = teachers.reduce(
     (sum, teacher) => sum + teacher.salary,

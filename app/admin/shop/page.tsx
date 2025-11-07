@@ -15,13 +15,13 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { AdminLayout } from "@/components/layouts/admin-layout";
 import { Product } from "@/types";
 
 export default function ShopPage() {
   const { products, addProduct, updateProduct, deleteProduct } =
-    // useAdminStore (removed) // please use API fetch or server components();
+    useAdminStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);

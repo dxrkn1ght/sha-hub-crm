@@ -1,44 +1,40 @@
-"use client";
+"use client"
 
-import { useEffect, type ReactNode } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { LogOut, User, LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useAuthStore } from "@/stores/auth-store";
-import { cn } from "@/lib/utils";
+import { useEffect, type ReactNode } from "react"
+import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+import { LogOut, User, type LucideIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useAuthStore } from "@/stores/auth-store"
+import { cn } from "@/lib/utils"
 
 interface NavigationItem {
-  name: string;
-  href: string;
-  icon: LucideIcon;
+  name: string
+  href: string
+  icon: LucideIcon
 }
 
 interface UnifiedLayoutProps {
-  children: ReactNode;
-  navigation: NavigationItem[];
-  onInit?: () => void; // For any role-specific initialization
+  children: ReactNode
+  navigation: NavigationItem[]
+  onInit?: () => void // For any role-specific initialization
 }
 
-export function UnifiedLayout({
-  children,
-  navigation,
-  onInit,
-}: UnifiedLayoutProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const { user, logout } = useAuthStore();
+export function UnifiedLayout({ children, navigation, onInit }: UnifiedLayoutProps) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const { user, logout } = useAuthStore()
 
   useEffect(() => {
     if (onInit) {
-      onInit();
+      onInit()
     }
-  }, [onInit]);
+  }, [onInit])
 
   const handleLogout = () => {
-    logout();
-    router.push("/");
-  };
+    logout()
+    router.push("/")
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -50,22 +46,20 @@ export function UnifiedLayout({
 
         <nav className="px-4 space-y-1">
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href
             return (
               <Link
                 key={item.name}
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-blue-50 text-blue-700"
-                    : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  isActive ? "bg-blue-50 text-blue-700" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                 )}
               >
                 <item.icon className="size-5" />
                 {item.name}
               </Link>
-            );
+            )
           })}
         </nav>
 
@@ -76,18 +70,11 @@ export function UnifiedLayout({
               <User className="size-4 text-blue-600" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
-                {user?.name}
-              </p>
+              <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
               <p className="text-xs text-gray-500 capitalize">{user?.role}</p>
             </div>
           </div>
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            size="sm"
-            className="w-full justify-start bg-transparent"
-          >
+          <Button onClick={handleLogout} variant="outline" size="sm" className="w-full justify-start bg-transparent">
             <LogOut className="size-4 mr-2" />
             Logout
           </Button>
@@ -99,8 +86,7 @@ export function UnifiedLayout({
         <header className="bg-white border-b px-6 py-4">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold text-gray-900">
-              {navigation.find((item) => item.href === pathname)?.name ||
-                "Dashboard"}
+              {navigation.find((item) => item.href === pathname)?.name || "Dashboard"}
             </h2>
             <p className="text-gray-600">{user?.name}</p>
           </div>
@@ -109,5 +95,5 @@ export function UnifiedLayout({
         <main className="p-6">{children}</main>
       </div>
     </div>
-  );
+  )
 }

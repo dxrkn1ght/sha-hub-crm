@@ -30,12 +30,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useTeacherStore } from "@/stores/teacher-store";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { TeacherLayout } from "@/components/layouts/teacher-layout";
 
 export default function TeacherPointsPage() {
   const { groups, studentPoints, addStudentPoint } = useTeacherStore();
-  const { students } = // useAdminStore (removed) // please use API fetch or server components();
+  const { students } = useAdminStore();
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");

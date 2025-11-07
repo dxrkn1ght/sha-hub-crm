@@ -1,76 +1,110 @@
 "use client";
-import React from 'react';
-import { useForm } from 'react-hook-form';
 
-type FormData = {
-  username: string;
-  name?: string;
-  password: string;
-  email?: string;
-  phone?: string;
-  subject?: string;
-};
+import { useState } from "react";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAdminStore } from "@/stores/admin-store";
+import { AdminLayout } from "@/components/layouts/admin-layout";
+import { Teacher } from "@/types/teacher-types";
+import { TeacherFormDialog, TeachersTable } from "./fragments";
+import { TeacherFormValues } from "./fragments/teacher.schema";
 
-export default function AdminTeachersPage() {
-  const { register, handleSubmit, reset } = useForm<FormData>();
-  const [loading, setLoading] = React.useState(false);
-  const [message, setMessage] = React.useState('');
+export default function TeachersPage() {
+  const { teachers, addTeacher, updateTeacher, deleteTeacher } =
+    useAdminStore();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingTeacher, setEditingTeacher] = useState<Teacher | null>(null);
 
-  const onSubmit = async (data: FormData) => {
-    setLoading(true);
-    setMessage('');
-    try {
-      const res = await fetch('/api/admin/teachers', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || 'Failed');
-      setMessage('Teacher created: ' + json.user.username);
-      reset();
-    } catch (err: any) {
-      setMessage('Error: ' + err.message);
-    } finally {
-      setLoading(false);
+  const filteredTeachers = teachers.filter(
+    (teacher) =>
+      teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      teacher.subject.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleFormSubmit = (
+    formData: TeacherFormValues,
+    teacherToEdit: Teacher | null
+  ) => {
+    const teacherData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      subject: formData.subject,
+      salary: Number(formData.salary),
+      studentCount: Number(formData.studentCount),
+      status: formData.status,
+      joinDate:
+        teacherToEdit?.joinDate || new Date().toISOString().split("T")[0],
+    };
+
+    if (teacherToEdit) {
+      updateTeacher(teacherToEdit.id, teacherData);
+    } else {
+      addTeacher(teacherData);
+    }
+  };
+
+  const handleEdit = (teacher: Teacher) => {
+    setEditingTeacher(teacher);
+    setIsDialogOpen(true);
+  };
+
+  const handleDelete = (id: string) => {
+    if (confirm("Are you sure you want to delete this teacher?")) {
+      deleteTeacher(id);
     }
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-4">Admin — Create Teacher</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-md space-y-3">
-        <div>
-          <label className="block text-sm">Username</label>
-          <input {...register('username')} className="w-full border p-2 rounded" />
+    <AdminLayout>
+      <div className="space-y-6">
+        {/* Header */}
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Teachers</h1>
+            <p className="text-gray-600">Manage teacher information</p>
+          </div>
+          <TeacherFormDialog
+            open={isDialogOpen}
+            setOpen={setIsDialogOpen}
+            onSubmit={handleFormSubmit}
+            editingTeacher={editingTeacher}
+            setEditingTeacher={setEditingTeacher}
+          />
         </div>
-        <div>
-          <label className="block text-sm">Name</label>
-          <input {...register('name')} className="w-full border p-2 rounded" />
+
+        {/* Search */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
+          <Input
+            placeholder="Search teachers..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
         </div>
-        <div>
-          <label className="block text-sm">Password</label>
-          <input type="password" {...register('password')} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-          <label className="block text-sm">Email</label>
-          <input {...register('email')} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-          <label className="block text-sm">Phone</label>
-          <input {...register('phone')} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-          <label className="block text-sm">Subject</label>
-          <input {...register('subject')} className="w-full border p-2 rounded" />
-        </div>
-        <div>
-          <button className="px-4 py-2 rounded bg-slate-700 text-white" disabled={loading}>
-            {loading ? 'Creating...' : 'Create Teacher'}
-          </button>
-        </div>
-        {message && <div className="mt-2 text-sm">{message}</div>}
-      </form>
-    </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>List of Teachers</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <TeachersTable
+              teachers={filteredTeachers}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          </CardContent>
+        </Card>
+
+        {filteredTeachers.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-gray-500">No teachers found</p>
+          </div>
+        )}
+      </div>
+    </AdminLayout>
   );
 }

@@ -1,9 +1,9 @@
 import { Users, GraduationCap, DollarSign, TrendingUp } from "lucide-react";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { StatCard } from "./stat-card";
 
 function StatCards() {
-  const { teachers, students, payments } = // useAdminStore (removed) // please use API fetch or server components();
+  const { teachers, students, payments } = useAdminStore();
 
   const totalRevenue = payments
     .filter((p) => p.status === "completed")

@@ -4,7 +4,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import {
   Bar,
   BarChart,
@@ -15,7 +15,7 @@ import {
 } from "recharts";
 
 function TeacherPerformance() {
-  const { teachers } = // useAdminStore (removed) // please use API fetch or server components();
+  const { teachers } = useAdminStore();
 
   const teacherPerformanceData = teachers.map((teacher) => ({
     name: teacher.name,

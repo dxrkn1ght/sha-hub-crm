@@ -27,7 +27,7 @@ import {
 import { useAuthStore } from "@/stores/auth-store";
 import { useStudentStore } from "@/stores/student-store";
 import { useTeacherStore } from "@/stores/teacher-store";
-import { // useAdminStore (removed) // please use API fetch or server components } from "@/stores/admin-store";
+import { useAdminStore } from "@/stores/admin-store";
 import { StudentLayout } from "@/components/layouts/student-layout";
 import { cn } from "@/lib/utils";
 
@@ -35,7 +35,7 @@ export default function StudentDashboard() {
   const { user } = useAuthStore();
   const { totalPoints, studentActivities } = useStudentStore();
   const { groups, lessons, attendanceRecords } = useTeacherStore();
-  const { teachers } = // useAdminStore (removed) // please use API fetch or server components.getState(); // Declare // useAdminStore (removed) // please use API fetch or server components
+  const { teachers } = useAdminStore.getState(); // Declare useAdminStore
 
   const studentGroups = groups.filter((group) =>
     group.studentIds.includes(user?.id || "")
@@ -87,7 +87,7 @@ export default function StudentDashboard() {
 
     return {
       groupName: group.name,
-      teacher: teachers.find((t) => t.subject === group.subject)?.name || "N/A", // Use declared // useAdminStore (removed) // please use API fetch or server components
+      teacher: teachers.find((t) => t.subject === group.subject)?.name || "N/A", // Use declared useAdminStore
       schedule: `${group.lessonDays.join(", ")} ${group.lessonTime}`,
       room: "101", // Mock room
       totalStudents: totalStudentsInGroup,
