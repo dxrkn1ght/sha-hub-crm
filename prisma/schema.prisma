@@ -1,0 +1,85 @@
+// Prisma schema for Shon's-HUB
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  name      String?
+  email     String?  @unique
+  password  String
+  role      UserRole
+  createdAt DateTime @default(now())
+  teacher   Teacher?
+  student   Student?
+}
+
+model Teacher {
+  id      String  @id @default(cuid())
+  userId  String  @unique
+  user    User    @relation(fields: [userId], references: [id])
+  phone   String?
+  subject String?
+  groups  Group[] @relation("TeacherGroups")
+}
+
+model Group {
+  id         String             @id @default(cuid())
+  name       String
+  subject    String?
+  lessonTime String?
+  lessonDays String?
+  teacherId  String?
+  teacher    Teacher?           @relation(fields: [teacherId], references: [id], name: "TeacherGroups")
+  students   Student[]
+  lessons    Lesson[]
+  attendance AttendanceRecord[]
+}
+
+model Student {
+  id      String         @id @default(cuid())
+  userId  String         @unique
+  user    User           @relation(fields: [userId], references: [id])
+  phone   String?
+  groupId String?
+  group   Group?         @relation(fields: [groupId], references: [id])
+  points  StudentPoint[]
+}
+
+model Lesson {
+  id       String    @id @default(cuid())
+  groupId  String
+  group    Group     @relation(fields: [groupId], references: [id])
+  topic    String?
+  date     DateTime?
+  homework String?
+}
+
+model AttendanceRecord {
+  id                String   @id @default(cuid())
+  groupId           String
+  group             Group    @relation(fields: [groupId], references: [id])
+  date              DateTime @default(now())
+  presentStudentIds String // CSV of student userIds for simplicity
+}
+
+model StudentPoint {
+  id        String   @id @default(cuid())
+  studentId String
+  student   Student  @relation(fields: [studentId], references: [id])
+  points    Int
+  reason    String?
+  createdAt DateTime @default(now())
+}
+
+enum UserRole {
+  admin
+  teacher
+  student
+}
