@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 export const loginFormSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -6,6 +6,6 @@ export const loginFormSchema = z.object({
   role: z.enum(["admin", "teacher", "student"], {
     required_error: "Please select a role",
   }),
-});
+})
 
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type LoginFormValues = z.infer<typeof loginFormSchema>

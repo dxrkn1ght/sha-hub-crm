@@ -1,21 +1,7 @@
-import { User, Activity, Payment, Product, UserRole } from "@/types";
-import { Student, Achievement } from "@/types/student-types";
-import {
-  Teacher,
-  AttendanceRecord,
-  Group,
-  Lesson,
-  StudentPoint,
-  TeacherActivity,
-} from "@/types/teacher-types";
-import {
-  Award,
-  BookCheck,
-  CalendarCheck,
-  MessageSquare,
-  Shield,
-  ShoppingCart,
-} from "lucide-react";
+import type { User, Activity, Payment, Product, UserRole } from "@/types"
+import type { Student, Achievement } from "@/types/student-types"
+import type { Teacher, AttendanceRecord, Group, Lesson, StudentPoint, TeacherActivity } from "@/types/teacher-types"
+import { Award, BookCheck, CalendarCheck, MessageSquare, Shield, ShoppingCart } from "lucide-react"
 
 // * Demo accounts data for display
 const demoAccounts = [
@@ -43,14 +29,14 @@ const demoAccounts = [
     icon: ShoppingCart,
     color: "text-purple-600 bg-purple-50",
   },
-];
+]
 
 // * Mock users data
 const mockUsers: User[] = [
   { id: "1", username: "admin", role: "admin", name: "Admin User" },
   { id: "2", username: "teacher", role: "teacher", name: "John Teacher" },
   { id: "3", username: "student", role: "student", name: "Jane Student" },
-];
+]
 
 // * Mock data
 const mockTeachers: Teacher[] = [
@@ -64,6 +50,8 @@ const mockTeachers: Teacher[] = [
     studentCount: 12,
     joinDate: "2024-01-15",
     status: "active",
+    username: "john.smith",
+    password: "password",
   },
   {
     id: "2",
@@ -75,6 +63,8 @@ const mockTeachers: Teacher[] = [
     studentCount: 15,
     joinDate: "2024-02-01",
     status: "active",
+    username: "sarah.johnson",
+    password: "password",
   },
   {
     id: "3",
@@ -86,6 +76,8 @@ const mockTeachers: Teacher[] = [
     studentCount: 8,
     joinDate: "2024-03-10",
     status: "active",
+    username: "mike.wilson",
+    password: "password",
   },
   {
     id: "4",
@@ -97,8 +89,10 @@ const mockTeachers: Teacher[] = [
     studentCount: 10,
     joinDate: "2024-01-20",
     status: "active",
+    username: "lisa.brown",
+    password: "password",
   },
-];
+]
 
 const mockStudents: Student[] = [
   {
@@ -125,7 +119,7 @@ const mockStudents: Student[] = [
     status: "active",
     paymentStatus: "pending",
   },
-];
+]
 
 const mockPayments: Payment[] = [
   {
@@ -146,7 +140,7 @@ const mockPayments: Payment[] = [
     status: "pending",
     method: "cash",
   },
-];
+]
 
 const mockProducts: Product[] = [
   {
@@ -167,7 +161,7 @@ const mockProducts: Product[] = [
     stock: 20,
     image: "/scientific-calculator.webp",
   },
-];
+]
 
 const mockActivities: Activity[] = [
   {
@@ -188,7 +182,7 @@ const mockActivities: Activity[] = [
     message: "Premium notebook added to shop",
     timestamp: "6 hours ago",
   },
-];
+]
 
 // * Mock Achievements for student role
 const mockAchievements: Achievement[] = [
@@ -220,7 +214,7 @@ const mockAchievements: Achievement[] = [
     icon: MessageSquare,
     earnedDate: null,
   },
-];
+]
 
 // * Mock Data for teacher role
 const mockGroups: Group[] = [
@@ -257,26 +251,10 @@ const mockGroups: Group[] = [
     subject: "Chemistry",
     lessonTime: "16:00 - 17:30",
     lessonDays: ["Tuesday", "Saturday"],
-    studentIds: [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-    ],
+    studentIds: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
     active: true,
   },
-];
+]
 
 const mockLessons: Lesson[] = [
   {
@@ -300,7 +278,7 @@ const mockLessons: Lesson[] = [
     date: "2024-01-16",
     homework: "Read Chapter 3 and answer questions",
   },
-];
+]
 
 const mockAttendanceRecords: AttendanceRecord[] = [
   {
@@ -343,7 +321,7 @@ const mockAttendanceRecords: AttendanceRecord[] = [
     date: "2024-01-16",
     status: "late",
   },
-];
+]
 
 const mockStudentPoints: StudentPoint[] = [
   {
@@ -362,7 +340,7 @@ const mockStudentPoints: StudentPoint[] = [
     reason: "Completed extra homework",
     date: "2024-07-22",
   },
-];
+]
 
 const mockTeacherActivities: TeacherActivity[] = [
   {
@@ -383,7 +361,7 @@ const mockTeacherActivities: TeacherActivity[] = [
     message: "Attendance taken Chemistry A - 14/15 students present",
     timestamp: "5 hours ago",
   },
-];
+]
 
 export {
   demoAccounts,
@@ -399,4 +377,4 @@ export {
   mockAttendanceRecords,
   mockStudentPoints,
   mockTeacherActivities,
-};
+}

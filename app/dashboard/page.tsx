@@ -1,41 +1,48 @@
-"use client";
+"use client"
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/stores/auth-store";
-import { useStudentStore } from "@/stores/student-store";
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { useAuthStore } from "@/stores/auth-store"
+import { useStudentStore } from "@/stores/student-store"
 
 export default function DashboardPage() {
-  const { user } = useAuthStore();
-  const { setStudentId } = useStudentStore(); // Get setStudentId from student store
-  const router = useRouter();
+  const { user } = useAuthStore()
+  const { setStudentId } = useStudentStore()
+  const router = useRouter()
 
   useEffect(() => {
+    console.log("[v0] Dashboard redirect - user:", user)
+
     if (!user) {
-      router.push("/");
-      return;
+      console.log("[v0] No user found, redirecting to login")
+      router.push("/")
+      return
     }
 
     // Set student ID in student store if user is a student
     if (user.role === "student") {
-      setStudentId(user.id);
+      setStudentId(user.id)
     }
 
     // Redirect based on user role
     switch (user.role) {
       case "admin":
-        router.push("/admin/dashboard");
-        break;
+        console.log("[v0] Redirecting admin to /admin/dashboard")
+        router.push("/admin/dashboard")
+        break
       case "teacher":
-        router.push("/teacher/dashboard");
-        break;
+        console.log("[v0] Redirecting teacher to /teacher/dashboard")
+        router.push("/teacher/dashboard")
+        break
       case "student":
-        router.push("/student/dashboard");
-        break;
+        console.log("[v0] Redirecting student to /student/dashboard")
+        router.push("/student/dashboard")
+        break
       default:
-        router.push("/");
+        console.log("[v0] Unknown role, redirecting to login")
+        router.push("/")
     }
-  }, [user, router, setStudentId]); // Add setStudentId to dependencies
+  }, [user, router, setStudentId])
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -44,5 +51,5 @@ export default function DashboardPage() {
         <p className="text-gray-600">Redirecting to your dashboard...</p>
       </div>
     </div>
-  );
+  )
 }

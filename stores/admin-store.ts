@@ -1,43 +1,37 @@
-import { create } from "zustand";
-import { Activity, Payment, Product } from "@/types";
-import { Teacher } from "@/types/teacher-types";
-import { Student } from "@/types/student-types";
-import {
-  mockActivities,
-  mockPayments,
-  mockProducts,
-  mockStudents,
-  mockTeachers,
-} from "@/mock/data";
+import { create } from "zustand"
+import type { Activity, Payment, Product } from "@/types"
+import type { Teacher } from "@/types/teacher-types"
+import type { Student } from "@/types/student-types"
+import { mockActivities, mockPayments, mockProducts, mockStudents, mockTeachers } from "@/mock/data"
 
 interface AdminState {
-  teachers: Teacher[];
-  students: Student[];
-  payments: Payment[];
-  products: Product[];
-  activities: Activity[];
+  teachers: Teacher[]
+  students: Student[]
+  payments: Payment[]
+  products: Product[]
+  activities: Activity[]
 
   // Teacher CRUD
-  addTeacher: (teacher: Omit<Teacher, "id">) => void;
-  updateTeacher: (id: string, teacher: Partial<Teacher>) => void;
-  deleteTeacher: (id: string) => void;
+  addTeacher: (teacher: Omit<Teacher, "id">) => void
+  updateTeacher: (id: string, teacher: Partial<Teacher>) => void
+  deleteTeacher: (id: string) => void
 
   // Student CRUD
-  addStudent: (student: Omit<Student, "id">) => void;
-  updateStudent: (id: string, student: Partial<Student>) => void;
-  deleteStudent: (id: string) => void;
+  addStudent: (student: Omit<Student, "id">) => void
+  updateStudent: (id: string, student: Partial<Student>) => void
+  deleteStudent: (id: string) => void
 
   // Payment CRUD
-  addPayment: (payment: Omit<Payment, "id">) => void;
-  updatePayment: (id: string, payment: Partial<Payment>) => void;
+  addPayment: (payment: Omit<Payment, "id">) => void
+  updatePayment: (id: string, payment: Partial<Payment>) => void
 
   // Product CRUD
-  addProduct: (product: Omit<Product, "id">) => void;
-  updateProduct: (id: string, product: Partial<Product>) => void;
-  deleteProduct: (id: string) => void;
+  addProduct: (product: Omit<Product, "id">) => void
+  updateProduct: (id: string, product: Partial<Product>) => void
+  deleteProduct: (id: string) => void
 
   // Activity
-  addActivity: (activity: Omit<Activity, "id">) => void;
+  addActivity: (activity: Omit<Activity, "id">) => void
 }
 
 export const useAdminStore = create<AdminState>((set, get) => ({
@@ -49,31 +43,29 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
   // Teacher CRUD
   addTeacher: (teacher) => {
-    const newTeacher = { ...teacher, id: Date.now().toString() };
+    const newTeacher = { ...teacher, id: Date.now().toString(), joinDate: new Date().toISOString().split("T")[0] }
     set((state) => ({
       teachers: [...state.teachers, newTeacher],
       activities: [
         {
           id: Date.now().toString(),
           type: "teacher",
-          message: `New teacher ${teacher.name} added`,
+          message: `New teacher ${teacher.name} added (username: ${teacher.username})`,
           timestamp: "Just now",
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   updateTeacher: (id, updates) => {
     set((state) => ({
-      teachers: state.teachers.map((teacher) =>
-        teacher.id === id ? { ...teacher, ...updates } : teacher
-      ),
-    }));
+      teachers: state.teachers.map((teacher) => (teacher.id === id ? { ...teacher, ...updates } : teacher)),
+    }))
   },
 
   deleteTeacher: (id) => {
-    const teacher = get().teachers.find((t) => t.id === id);
+    const teacher = get().teachers.find((t) => t.id === id)
     set((state) => ({
       teachers: state.teachers.filter((teacher) => teacher.id !== id),
       activities: [
@@ -85,12 +77,12 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   // Student CRUD
   addStudent: (student) => {
-    const newStudent = { ...student, id: Date.now().toString() };
+    const newStudent = { ...student, id: Date.now().toString() }
     set((state) => ({
       students: [...state.students, newStudent],
       activities: [
@@ -102,19 +94,17 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   updateStudent: (id, updates) => {
     set((state) => ({
-      students: state.students.map((student) =>
-        student.id === id ? { ...student, ...updates } : student
-      ),
-    }));
+      students: state.students.map((student) => (student.id === id ? { ...student, ...updates } : student)),
+    }))
   },
 
   deleteStudent: (id) => {
-    const student = get().students.find((s) => s.id === id);
+    const student = get().students.find((s) => s.id === id)
     set((state) => ({
       students: state.students.filter((student) => student.id !== id),
       activities: [
@@ -126,12 +116,12 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   // Payment CRUD
   addPayment: (payment) => {
-    const newPayment = { ...payment, id: Date.now().toString() };
+    const newPayment = { ...payment, id: Date.now().toString() }
     set((state) => ({
       payments: [...state.payments, newPayment],
       activities: [
@@ -143,20 +133,18 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   updatePayment: (id, updates) => {
     set((state) => ({
-      payments: state.payments.map((payment) =>
-        payment.id === id ? { ...payment, ...updates } : payment
-      ),
-    }));
+      payments: state.payments.map((payment) => (payment.id === id ? { ...payment, ...updates } : payment)),
+    }))
   },
 
   // Product CRUD
   addProduct: (product) => {
-    const newProduct = { ...product, id: Date.now().toString() };
+    const newProduct = { ...product, id: Date.now().toString() }
     set((state) => ({
       products: [...state.products, newProduct],
       activities: [
@@ -168,19 +156,17 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   updateProduct: (id, updates) => {
     set((state) => ({
-      products: state.products.map((product) =>
-        product.id === id ? { ...product, ...updates } : product
-      ),
-    }));
+      products: state.products.map((product) => (product.id === id ? { ...product, ...updates } : product)),
+    }))
   },
 
   deleteProduct: (id) => {
-    const product = get().products.find((p) => p.id === id);
+    const product = get().products.find((p) => p.id === id)
     set((state) => ({
       products: state.products.filter((product) => product.id !== id),
       activities: [
@@ -192,15 +178,12 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         },
         ...state.activities,
       ],
-    }));
+    }))
   },
 
   addActivity: (activity) => {
     set((state) => ({
-      activities: [
-        { ...activity, id: Date.now().toString() },
-        ...state.activities,
-      ],
-    }));
+      activities: [{ ...activity, id: Date.now().toString() }, ...state.activities],
+    }))
   },
-}));
+}))

@@ -1,36 +1,29 @@
-"use client";
+"use client"
 
-import { Edit, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Teacher } from "@/types/teacher-types";
+import { Edit, Trash2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import type { Teacher } from "@/types/teacher-types"
 
 type TeachersTableProps = {
-  teachers: Teacher[];
-  onEdit: (teacher: Teacher) => void;
-  onDelete: (id: string) => void;
-};
+  teachers: Teacher[]
+  onEdit: (teacher: Teacher) => void
+  onDelete: (id: string) => void
+}
 
-function getStatusColor(status: string) {
+function getStatusColor(status: Teacher["status"]) {
   switch (status) {
     case "active":
-      return "bg-green-100 text-green-800";
+      return "bg-green-100 text-green-800"
     case "inactive":
-      return "bg-red-100 text-red-800";
+      return "bg-red-100 text-red-800"
     default:
-      return "bg-gray-100 text-gray-800";
+      return "bg-gray-100 text-gray-800"
   }
 }
 
-function TeachersTable({ teachers, onEdit, onDelete }: TeachersTableProps) {
+export function TeachersTable({ teachers, onEdit, onDelete }: TeachersTableProps) {
   return (
     <Table>
       <TableHeader>
@@ -56,25 +49,15 @@ function TeachersTable({ teachers, onEdit, onDelete }: TeachersTableProps) {
             <TableCell>${teacher.salary}</TableCell>
             <TableCell>{teacher.studentCount}</TableCell>
             <TableCell>
-              <Badge className={getStatusColor(teacher.status)}>
-                {teacher.status}
-              </Badge>
+              <Badge className={getStatusColor(teacher.status)}>{teacher.status}</Badge>
             </TableCell>
             <TableCell>{teacher.joinDate}</TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onEdit(teacher)}
-                >
+                <Button size="sm" variant="outline" onClick={() => onEdit(teacher)}>
                   <Edit className="size-4" />
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => onDelete(teacher.id)}
-                >
+                <Button size="sm" variant="outline" onClick={() => onDelete(teacher.id)}>
                   <Trash2 className="size-4" />
                 </Button>
               </div>
@@ -83,7 +66,7 @@ function TeachersTable({ teachers, onEdit, onDelete }: TeachersTableProps) {
         ))}
       </TableBody>
     </Table>
-  );
+  )
 }
 
-export default TeachersTable;
+export default TeachersTable
